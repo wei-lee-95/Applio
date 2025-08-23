@@ -19,7 +19,7 @@ from rvc.train.process.model_information import model_information
 from rvc.lib.tools.analyzer import analyze_audio
 from rvc.lib.tools.launch_tensorboard import launch_tensorboard_pipeline
 from rvc.lib.tools.model_download import model_download_pipeline
-from rvc.lib.tools.tts import synthesize_text as google_tts_main
+# from rvc.lib.tools.tts import synthesize_text as google_tts_main
 
 python = sys.executable
 
@@ -323,7 +323,7 @@ def run_tts_script(
     credentials_path: str,
     tts_file: str,
     tts_text: str,
-    tts_language_code:str,
+    # tts_language_code:str,
     tts_voice: str,
     tts_rate: int,
     pitch: int,
@@ -348,27 +348,27 @@ def run_tts_script(
     sid: int = 0,
 ):
 
-    # tts_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..","Applio", "rvc", "lib", "tools", "tts.py"))
-    # if os.path.exists(output_tts_path) and os.path.abspath(output_tts_path).startswith(
-    #     os.path.abspath("assets")
-    # ):
-    #     os.remove(output_tts_path)
+    tts_script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..","Applio", "rvc", "lib", "tools", "tts.py"))
+    if os.path.exists(output_tts_path) and os.path.abspath(output_tts_path).startswith(
+        os.path.abspath("assets")
+    ):
+        os.remove(output_tts_path)
 
-    # command_tts = [
-    #     *map(
-    #         str,
-    #         [
-    #             python,
-    #             tts_script_path,
-    #             tts_file,
-    #             tts_text,
-    #             tts_voice,
-    #             tts_rate,
-    #             output_tts_path,
-    #         ],
-    #     ),
-    # ]
-    # subprocess.run(command_tts)
+    command_tts = [
+        *map(
+            str,
+            [
+                python,
+                tts_script_path,
+                tts_file,
+                tts_text,
+                tts_voice,
+                tts_rate,
+                output_tts_path,
+            ],
+        ),
+    ]
+    subprocess.run(command_tts)
 
     google_tts_main(tts_text, tts_language_code, tts_voice, tts_rate, pitch, output_tts_path, credentials_path)
     infer_pipeline = import_voice_converter()
@@ -2412,4 +2412,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
